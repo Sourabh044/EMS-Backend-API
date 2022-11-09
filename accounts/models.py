@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+# from django.utils.translation import ugettext_lazy as _
+import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
@@ -52,7 +55,6 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=12, blank=True)
     Account = models.PositiveSmallIntegerField(choices=ROLE_CHOICE, blank=True, null=True)
-
     # Required Fields
 
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -65,7 +67,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["username", "first_name","middle_name","last_name"]
+    REQUIRED_FIELDS = ["username", "first_name","last_name"]
 
     objects = UserManager()
 
@@ -91,8 +93,8 @@ class UserProfile(models.Model):
     FEMALE = 2
 
     GENDER_CHOICES = (
-        (MALE,'Male')
-        (FEMALE,'Female')
+        (MALE,'Male'),
+        (FEMALE,'Female'),
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
@@ -118,12 +120,12 @@ class UserProfile(models.Model):
     # Personal Details
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, blank=True, null=True)
     emergency_contact = models.CharField(max_length=12,blank=True,null=True)
-    date_of_joining = models.DateTimeField()
-    date_of_termination = models.DateTimeField()
+    date_of_joining = models.DateTimeField(blank=True,null=True)
+    date_of_termination = models.DateTimeField(blank=True,null=True)
     pan_card_no = models.CharField(max_length=15,blank=True,null=True)
     aadhaar_card = models.CharField(max_length=20,blank=True,null=True)
     blood_group = models.CharField(max_length=20,blank=True,null=True)
-
+    date_of_birth = models.DateField(blank=True,null=True)
 
     # Extra - Details
     latitude = models.CharField(max_length=20, blank=True, null=True)
@@ -136,3 +138,36 @@ class UserProfile(models.Model):
 
     def __str__(self) -> str:
         return self.user.email
+
+
+def current_year():
+    return datetime.date.today().year
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)    
+    
+
+def year_choices():
+    return [(r,r) for r in range(1984, datetime.date.today().year+1)]
+
+# class MyForm(forms.ModelForm):
+#     year = forms.TypedChoiceField(coerce=int, choices=year_choices, initial=current_year)
+
+
+class EducationDetails(models.Model):
+
+    name = models.CharField(max_length=50)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    degree = models.CharField(max_length=50,blank=True,null=True)
+    details = models.TextField(max_length = 150)
+    grade = models.CharField(max_length=50,blank=True,null=True)
+    passing_year = models.IntegerField(validators=[MinValueValidator(1984), max_value_current_year])
+    certificate = models.FileField(upload_to='pdfs/', null=True, blank=True)
+
+
+class LeaveApplication(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    date = models.DateField(blank=False,null=False)
+    approved = models.BooleanField(default=False)
+
+
