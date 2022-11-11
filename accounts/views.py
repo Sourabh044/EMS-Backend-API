@@ -10,21 +10,6 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 
 
-#API Views
-
-# Custom Permission to check if the user is the HR
-class IsHR(BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.account == 1
-
-
-class EmployeeViewset(viewsets.ModelViewSet):
-    queryset = User.objects.filter(account=2)
-    serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticated, IsHR]
-    # authentication_classes = [TokenAuthentication]
-    # renderer_classes = [UserRenderer]
-
 # ------------------------------------------------------------------------------------------------------------------------
 
 def check_role_HR(user):

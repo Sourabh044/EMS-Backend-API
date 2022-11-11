@@ -40,5 +40,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
     path('', include('accounts.urls')),
+    path('', include('hr.urls')),
     path('token/', CustomAuthToken.as_view()),
 ]

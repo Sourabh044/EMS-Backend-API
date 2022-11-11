@@ -1,0 +1,17 @@
+{% extends "basehr.html" %}
+
+{% block content %}
+
+<form action="{% url 'employee' employee.id %}" method="post">
+{% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    
+{{form}}
+    <button class="btn-primary">Update</button>
+</form>
+
+{% endblock content %}

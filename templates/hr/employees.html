@@ -25,7 +25,7 @@
       <td>{{employees.email}}</td>
       <td>{{employees.username}}</td>
       <td>{{employees.phone_number}}</td>
-      <td>{{employees.id}}</td>
+      <td><a href="{% url 'employee' employees.id %}">edit</a></td>
     </tr>
 {% endfor %}
 
