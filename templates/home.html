@@ -1,12 +1,7 @@
-{% extends "base.html" %}
-
-
-{% block content %}
-
 <br>
-<h1 class="text-center text-primary">Hello World!</h1>
+{% if request.user.get_role == 'HR' %}
+<h1 class="text-center text-primary">Hello World! HR </h1>
+{% elif request.user.get_role == 'EMPLOYEE' %}
+<h1 class="text-center text-primary">Hello World! EMPLOYEE </h1>
+{% endif %}
 <br>
-
-
-
-{% endblock content %}

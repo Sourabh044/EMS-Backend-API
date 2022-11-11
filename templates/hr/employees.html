@@ -1,0 +1,74 @@
+{% extends "basehr.html" %}
+
+{% block content %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">First</th>
+      <th scope="col">Middle</th>
+      <th scope="col">Last</th>
+      <th scope="col">Email</th>
+      <th scope="col">Username</th>
+      <th scope="col">Phone No.</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for employees in page_obj %}
+    <tr>
+      <th scope="row">{{employees.id}}</th>
+      <td scope="row">{{employees.first_name}}</td>
+      <td>{{employees.middle_name}}</td>
+      <td>{{employees.last_name}}</td>
+      <td>{{employees.email}}</td>
+      <td>{{employees.username}}</td>
+      <td>{{employees.phone_number}}</td>
+      <td>{{employees.id}}</td>
+    </tr>
+{% endfor %}
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+  </tbody>
+</table>
+
+
+
+{% endblock content %}
+
+
+
+  </tbody>
+</table>
+
+
+    <div>
+      <h1>Employees Here</h1>
+      <hr />
+      <div>
+      <table className="table table-bordered">
+  <thead>
+
+  </thead>
+  <tbody>
+
+    

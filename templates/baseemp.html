@@ -17,7 +17,7 @@
         <div class="d-flex" id="wrapper">
             <!-- Sidebar-->
             <div class="border-end bg-white" id="sidebar-wrapper">
-                <div class="sidebar-heading border-bottom bg-light">Dashboard</div>
+                <div class="sidebar-heading border-bottom bg-light">Employee Dashboard</div>
                 <div class="list-group list-group-flush">
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!"></a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
@@ -63,6 +63,10 @@
                         ID which will toggle the menu when clicked.
                     </p> {% endcomment %}
                     {% block content %}
+                    
+                    {% if 'home' in request.PATH %}
+                    {% include "home.html" %}
+                    {% endif %}
                     
                     {% endblock content %}
                 </div>
