@@ -1,7 +1,7 @@
 <br>
 {% if request.user.get_role == 'HR' %}
-<h1 class="text-center text-primary">Hello World! HR </h1>
+<h1 class="text-center text-primary">Hello World! HR {{user}} </h1>
 {% elif request.user.get_role == 'EMPLOYEE' %}
-<h1 class="text-center text-primary">Hello World! EMPLOYEE </h1>
+<h1 class="text-center text-primary">Hello World! {{user}} </h1>
 {% endif %}
 <br>

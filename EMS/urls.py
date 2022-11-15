@@ -19,7 +19,7 @@ from rest_framework.authtoken import views
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-
+from accounts.views import home
 class CustomAuthToken(ObtainAuthToken):
     
     def post(self, request, *args, **kwargs):
@@ -39,6 +39,7 @@ class CustomAuthToken(ObtainAuthToken):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
+    path('', home),
     path('', include('accounts.urls')),
     path('', include('hr.urls')),
     path('token/', CustomAuthToken.as_view()),

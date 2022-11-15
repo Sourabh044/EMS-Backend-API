@@ -37,14 +37,14 @@ def home(request):
     if request.user.is_authenticated:
         if request.user.account == 1:
             template = "basehr.html"
-        elif request.user.account == 1:
+        elif request.user.account == 2:
             template = "baseemp.html"
         elif request.user.account == None and request.user.is_superadmin:
             return redirect("/admin")
     else:
         template = "login.html"
-    return render(request, template)
-
+        return render(request,template)
+    return render(request,template)
 
 def login(request):
     if not request.user.is_anonymous:

@@ -1,17 +1,90 @@
 {% extends "basehr.html" %}
 
 {% block content %}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 " >
+    <form class="mb-2 " action="{% url 'employee' employee.id %}" method="post">
+    {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            {{form.email}}
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="firstname" class="form-label">First name</label>
+            {{form.first_name}}
+        </div>
+            <div class="mb-3">
+            <label for="Midle Name" class="form-label">Middle Name</label>
+            {{form.middle_name}}
+        </div>
+            <div class="mb-3">
+            <label for="Last name" class="form-label">Last Name</label>
+            {{form.last_name}}
+        </div>
+            <div class="mb-3">
+            <label for="Username" class="form-label">Username</label>
+            {{form.username}}
+        </div>
+            <div class="mb-3">
+            <label for="Phone Number" class="form-label">Phone Number</label>
+            {{form.phone_number}}
+        </div>
+            <div class="mb-3">
+            <label for="Account" class="form-label">Account</label>
+            {{form.account}}
+        </div>
+        <div class="mb-3">
+            <label for="Date of birth" class="form-label">Date Of Birth</label>
+            {{pform.date_of_birth}}
+        </div>
+        <div class="mb-3">
+            <label for="Permanent Address" class="form-label">Permanent Address</label>
+            {{pform.permanent_address}}
+        </div>
+        <div class="mb-3">
+            <label for="Permanent Pincode" class="form-label">Permanent Pincode</label>
+            {{pform.permanent_pincode}}
+        </div>
+        <div class="mb-3">
+            <label for="Present Address" class="form-label">Present Address</label>
+            {{pform.present_address}}
+        </div>
+        <div class="mb-3">
+            <label for="Present pincode" class="form-label">Present Pincode</label>
+            {{pform.present_pincode}}
+        </div>
+        <div class="mb-3">
+            <label for="Emergency Contact" class="form-label">Emergency Contact</label>
+            {{pform.emergency_contact}}
+        </div>
+        <div class="mb-3">
+            <label for="DOJ" class="form-label">Date Of Joining</label>
+            {{pform.date_of_joining}}
+        </div>
+        <div class="mb-3">
+            <label for="DOT" class="form-label">Date Of Termination</label>
+            {{pform.date_of_termination}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">PAN Card</label>
+            {{pform.pan_card_no}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Adhaar Card</label>
+            {{pform.aadhaar_card}}
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Blood Group</label>
+            {{pform.blood_group}}
+        </div>
+        <button type="submit" class="btn btn-primary mb-2 text-uppercase ">Update</button>
+    </form>
+        <script>
 
-<form action="{% url 'employee' employee.id %}" method="post">
-{% csrf_token %}
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    
-{{form}}
-    <button class="btn-primary">Update</button>
-</form>
+        </script>
+        <a href="{% url 'delete-employee' employee.id %}" class="btn btn-danger mb-2 text-uppercase" id="delbutton" data-url="{% url 'delete-employee' employee.id %}"> Delete</a>
+    {% comment %} <form action="{% url 'delete-employee' employee.id %}" method="DELETE">
+    </form> {% endcomment %}
+</div>
 
 {% endblock content %}

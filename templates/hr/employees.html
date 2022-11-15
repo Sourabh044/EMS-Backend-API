@@ -30,14 +30,14 @@
 {% endfor %}
 
 
-<div class="pagination">
+<nav  class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a class="page-item active"><a href="?page=1">&laquo; first</a></a>
+            <a class="page-item active"><a href="?page={{ page_obj.previous_page_number }}">previous</a></a>
         {% endif %}
 
-        <span class="current">
+        <span class="page-item active current">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
@@ -46,7 +46,7 @@
             <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
-</div>
+</nav>
 
   </tbody>
 </table>

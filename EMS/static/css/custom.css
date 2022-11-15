@@ -1,0 +1,41 @@
+@keyframes show-toast {
+    0% {
+        bottom: -100%;
+    }
+
+    20% {
+        bottom: 100px;
+    }
+
+    80% {
+        bottom: 100px;
+    }
+
+    100% {
+        bottom: -100% ;
+    }
+}
+
+
+.show-notification {
+    position: fixed;
+    bottom: 100%;
+    right: 20px;
+    animation-name: show-toast;
+    animation-duration: 8s;
+    z-index: 99;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
+}
+
+/* Input Style */
+select { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-box-shadow: none; box-shadow: none; box-sizing: border-box; color: #999; font-size: 14px; height: 36px; line-height: 36px; padding: 10px 15px; width: 100%; border: 1px solid #e4e4e4; font-family: 'Open Sans', sans-serif; font-weight: 400; }
+textarea, input[type=date], input[type=datetime], input[type=datetime-local], input[type=email], input[type=month], input[type=number], input[type=password], input[type=range], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week] { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -webkit-box-shadow: none; box-shadow: none; box-sizing: border-box; color: #9097a1; font-size: 12px; height: 40px; line-height: 40px; padding: 0 15px; width: 100%; border: 1px solid #eceef4; font-family: 'Open Sans', sans-serif; font-weight: 400; }
+textarea { height: 175px; }
