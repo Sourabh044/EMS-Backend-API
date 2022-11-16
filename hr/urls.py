@@ -11,6 +11,7 @@ urlpatterns = [
     path('employees',login_required( user_passes_test(Employee.as_view())), name='employees'),
     path('employees/<int:pk>',login_required(Employee.as_view()), name='employee'),
     path('employees/delete/<int:pk>',deleteEmployee, name='delete-employee'),
+    path('addemployee/',addemployee,name='add-employee'),
 ]
 
 urlpatterns += router.urls
