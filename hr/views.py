@@ -8,8 +8,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import BasePermission, IsAuthenticated
 
 from django.views.generic.edit import CreateView
-from accounts.forms import EmployeeForm, EmployeeUserProfileForm
-from accounts.models import User, UserProfile
+from accounts.forms import EmployeeForm, EmployeeUserProfileForm, LeaveForm
+from accounts.models import User, UserProfile, LeaveApplication
 from accounts.serializers import EmployeeSerializer
 from accounts.views import check_role_HR
 from django.views import View
@@ -73,7 +73,9 @@ class Employee(View):
     def get(self, request, pk=None):
         if not pk:
             employee_list = User.objects.filter(account=2).order_by("-date_joined")
-            paginator = Paginator(employee_list, )  # show 5 employees only
+            paginator = Paginator(
+                employee_list,
+            )  # show 5 employees only
 
             page_number = request.GET.get("page")
             page_obj = paginator.get_page(page_number)
@@ -137,3 +139,37 @@ def addemployee(request):
     pform = EmployeeUserProfileForm()
     context = {"form": form, "pform": pform}
     return render(request, "hr/addemployee.html", context)
+
+
+def LeaveList(request, pk=None):
+    if pk:
+        leave = LeaveApplication.objects.get(id=pk)
+        if request.method=='POST':
+            form = LeaveForm(request.POST)
+            if form.is_valid():
+                approved = form.cleaned_data.get('approved')
+                leave.approved = approved
+                leave.save()
+                if approved:
+                    messages.success(request,f'{leave.user.first_name} Leave has Been Granted.')
+                else:
+                    messages.error(request,f'{leave.user.first_name} Leave has Been Denied!')
+                return redirect('leave-list')
+        form = LeaveForm(instance=leave)
+        context = {
+            "leave": leave,
+            "form": form,
+        }
+
+        return render(request, "hr/leave.html", context)
+    leaves = LeaveApplication.objects.all()
+    paginator = Paginator(leaves, 10)  # show 5 employees only
+
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    context = {
+        "leaves": leaves,
+        "page_obj": page_obj,
+    }
+
+    return render(request, "hr/leavelist.html", context)

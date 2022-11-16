@@ -1,6 +1,8 @@
 {% extends "basehr.html" %}
 
 {% block content %}
+{% if leaves %}
+
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" > 
 <a href="{% url 'add-employee'%}"class="btn btn-primary m-2 float-end"> <i class="fa fa-solid fa-user-plus"></i>Add</a>
 <table class="table">
@@ -10,25 +12,25 @@
       <th scope="col">First</th>
       <th scope="col">Middle</th>
       <th scope="col">Last</th>
+      <th scope="col">date</th>
+      <th scope="col">Status</th>
       <th scope="col">Email</th>
       <th scope="col">Username</th>
       <th scope="col">Phone No.</th>
-      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-    {% for employees in page_obj %}
+    {% for leave in page_obj %}
     <tr>
-      <th scope="row">{{employees.id}}</th>
-      <td scope="row">{{employees.first_name}}</td>
-      <td>{{employees.middle_name}}</td>
-      <td>{{employees.last_name}}</td>
-      <td>{{employees.email}}</td>
-      <td>{{employees.username}}</td>
-      <td>{{employees.phone_number}}</td>
-      <td><a href="{% url 'employee' employees.id %}"><i class="fa fa-user-pen "></i></i></a> | 
-          <a href="{% url 'delete-employee' employees.id %}" onclick="return confirm('Are you sure you want to delete {{employee.first_name}}?')"><i class="fa fa-solid fa-user-slash text-danger"></i></a>
-      </td> 
+      <th scope="row">{{leave.user.id}}</th>
+      <td scope="row"><a href="{% url 'leave' leave.id %}">{{leave.user.first_name}}</a></td>
+      <td>{{leave.user.middle_name}}</td>
+      <td>{{leave.user.last_name}}</td>
+      <td>{{leave.date}}</td> 
+      <td>{{leave.approved}}</td> 
+      <td>{{leave.user.email}}</td>
+      <td>{{leave.user.username}}</td>
+      <td>{{leave.user.phone_number}}</td>
     </tr>
 
 {% endfor %}
@@ -54,7 +56,10 @@
 
   </tbody>
 </table>
-
 </div>
+{% else %}
+<h1>No leaves here!</h1>
+
+{% endif %}
 
 {% endblock content %}

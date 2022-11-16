@@ -1,5 +1,5 @@
 from django import forms
-from .models import User ,UserProfile
+from .models import User ,UserProfile , LeaveApplication
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -42,3 +42,9 @@ class EmployeeUserProfileForm(forms.ModelForm):
             "blood_group",
             "date_of_birth",
         )
+
+class LeaveForm(forms.ModelForm):
+    date = forms.DateField(required= False, widget=DateInput)
+    class Meta:
+        model = LeaveApplication
+        fields = ('approved','type','date','reason',)

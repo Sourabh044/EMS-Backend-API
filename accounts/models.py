@@ -178,6 +178,17 @@ class EducationDetails(models.Model):
 
 
 class LeaveApplication(models.Model):
+    PAID = 1
+    UNPAID = 2
+
+    LEAVE_TYPE = (
+        (PAID,'PAID'),
+        (UNPAID,"UNPAID"),
+    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(blank=False, null=False)
+    reason = models.TextField(max_length=150,null=True,blank=True)
+    type = models.PositiveSmallIntegerField(choices=LEAVE_TYPE,default=UNPAID)
     approved = models.BooleanField(default=False)
+
+

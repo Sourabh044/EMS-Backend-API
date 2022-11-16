@@ -1,0 +1,29 @@
+{% extends "basehr.html" %}
+
+{% block content %}
+
+
+<h1>{{leave.user}}</h1>
+<hr>
+<form action="{% url 'leave' leave.id %}" method="post">
+{% csrf_token %}
+        <div class="mb-3">
+        <label for="approved" class="form-label">Type</label>
+        {{form.type}}
+        </div>
+        <div class="mb-3">
+        <label for="date" class="form-label">Date</label>
+        {{form.date}}
+        </div>
+        <div class="mb-3">
+            <label for="approved" class="form-label">Reason:</label>
+            {{form.reason}}
+        </div>
+        <div class="mb-3">
+            <label for="approved" class="form-label">Approved</label>
+            {{form.approved}}
+        </div>
+<button class="my-1 btn btn-primary text-center" type="submit">Update</button>
+</form>
+
+{% endblock content %}
