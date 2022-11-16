@@ -190,5 +190,7 @@ class LeaveApplication(models.Model):
     reason = models.TextField(max_length=150,null=True,blank=True)
     type = models.PositiveSmallIntegerField(choices=LEAVE_TYPE,default=UNPAID)
     approved = models.BooleanField(default=False)
+    
 
-
+    def __str__(self):
+        return f'{self.user.first_name} | {self.date} | {self.approved} '

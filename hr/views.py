@@ -149,6 +149,9 @@ def LeaveList(request, pk=None):
             if form.is_valid():
                 approved = form.cleaned_data.get('approved')
                 leave.approved = approved
+                leave.date = form.cleaned_data.get('date')
+                leave.reason = form.cleaned_data.get('reason')
+                leave.type = form.cleaned_data.get('type')
                 leave.save()
                 if approved:
                     messages.success(request,f'{leave.user.first_name} Leave has Been Granted.')
