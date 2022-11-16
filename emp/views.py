@@ -15,25 +15,22 @@ from accounts.views import check_role_employee
 @user_passes_test(check_role_employee)
 def myleaves(request):
     user = request.user
-    print(user)
     leaves = LeaveApplication.objects.filter(user=user).order_by("-date")
     if leaves.exists():
-        print(leaves)
         context = {
             "leaves": leaves,
         }
+        return render(request, "emp/leaves.html", context)
     else:
-        context = {}
-    return render(request, "emp/leaves.html", context)
+        return render(request, "emp/leaves.html")
 
 
 def applyleave(request):
     if request.method == "POST":
         request.POST._mutable = True
-        data = request.POST
-        data['type'] = 2
+        request.POST["type"] = 2
         request.POST._mutable = False
-        form = LeaveForm(data)
+        form = LeaveForm(request.POST)
         if form.is_valid():
             leave = form.save(commit=False)
             leave.user = request.user
