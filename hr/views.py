@@ -4,35 +4,18 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views import View
-from rest_framework import viewsets
-from rest_framework.permissions import BasePermission, IsAuthenticated
+
+
 
 from django.views.generic.edit import CreateView
 from accounts.forms import EmployeeForm, EmployeeUserProfileForm, LeaveForm
 from accounts.models import User, UserProfile, LeaveApplication
-from accounts.serializers import EmployeeSerializer
 from accounts.views import check_role_HR
 from django.views import View
 from django.contrib.auth.hashers import make_password
 from .utils import leave_email
 
 # Create your views here.
-
-# API Views
-
-# Custom Permission to check if the user is the HR
-class IsHR(BasePermission):
-    def has_permission(self, request, view):
-        return request.user and request.user.account == 1
-
-
-class EmployeeViewset(viewsets.ModelViewSet):
-    queryset = User.objects.filter(account=2)
-    serializer_class = EmployeeSerializer
-    permission_classes = [IsAuthenticated, IsHR]
-    # authentication_classes = [TokenAuthentication]
-    # renderer_classes = [UserRenderer]
-
 
 '''@login_required(login_url='login')
 @user_passes_test(check_role_HR)

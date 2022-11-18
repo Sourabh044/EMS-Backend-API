@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from rest_framework import viewsets
-from accounts.serializers import EmployeeSerializer
+from api.HR.serializers import EmployeeSerializer
 from .models import User
 from rest_framework.permissions import IsAuthenticated, BasePermission
 

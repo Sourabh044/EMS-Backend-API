@@ -43,5 +43,6 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('hr.urls')),
     path('', include('emp.urls')),
+    path('api/', include('api.urls')),
     path('token/', CustomAuthToken.as_view()),
 ]
