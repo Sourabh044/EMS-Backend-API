@@ -14,6 +14,7 @@ from accounts.serializers import EmployeeSerializer
 from accounts.views import check_role_HR
 from django.views import View
 from django.contrib.auth.hashers import make_password
+from .utils import leave_email
 
 # Create your views here.
 
@@ -33,38 +34,40 @@ class EmployeeViewset(viewsets.ModelViewSet):
     # renderer_classes = [UserRenderer]
 
 
-# @login_required(login_url='login')
-# @user_passes_test(check_role_HR)
-# def employee(request,pk=None):
-#     if not pk:
-#         employee_list = User.objects.filter(account=2).order_by('-date_joined')
-#         paginator = Paginator(employee_list,5) #show 5 employees only
+'''@login_required(login_url='login')
+@user_passes_test(check_role_HR)
+def employee(request,pk=None):
+    if not pk:
+        employee_list = User.objects.filter(account=2).order_by('-date_joined')
+        paginator = Paginator(employee_list,5) #show 5 employees only
 
-#         page_number = request.GET.get('page')
-#         page_obj = paginator.get_page(page_number)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
-#         return render(request,'hr/employees.html',{'page_obj': page_obj})
-#     elif pk:
-#         employee = User.objects.get(id=pk)
-#         profile = UserProfile.objects.get(user=employee)
-#         if request.method == 'POST':
-#             form = EmployeeForm(request.POST,instance=employee)
-#             pform = EmployeeUserProfileForm(request.POST,instance=profile)
-#             if form.is_valid() and pform.is_valid():
-#                 form.save()
-#                 pform.save()
-#                 messages.success(request,f'Employee {employee} updated!')
-#         form = EmployeeForm(instance=employee)
-#         pform = EmployeeUserProfileForm(instance=profile)
-#         context = {
-#             'form':form,
-#             'pform': pform,
-#             'employee':employee,
-#         }
-#         return render(request,'hr/employee.html',context)
+        return render(request,'hr/employees.html',{'page_obj': page_obj})
+    elif pk:
+        employee = User.objects.get(id=pk)
+        profile = UserProfile.objects.get(user=employee)
+        if request.method == 'POST':
+            form = EmployeeForm(request.POST,instance=employee)
+            pform = EmployeeUserProfileForm(request.POST,instance=profile)
+            if form.is_valid() and pform.is_valid():
+                form.save()
+                pform.save()
+                messages.success(request,f'Employee {employee} updated!')
+        form = EmployeeForm(instance=employee)
+        pform = EmployeeUserProfileForm(instance=profile)
+        context = {
+            'form':form,
+            'pform': pform,
+            'employee':employee,
+        }
+        return render(request,'hr/employee.html',context)
 
-# @login_required(login_url='login')
-# @user_passes_test(check_role_HR)
+@login_required(login_url='login')
+@user_passes_test(check_role_HR)'''
+
+
 decorators = [login_required, user_passes_test(check_role_HR)]
 
 
@@ -155,11 +158,18 @@ def LeaveList(request, pk=None):
                 leave.reason = form.cleaned_data.get("reason")
                 leave.type = form.cleaned_data.get("type")
                 leave.save()
+                user = leave.user
                 if approved:
+                    mail_subject = 'Leave Approved!!'
+                    template_name = 'emails/hr/leaveapprove.html'
+                    leave_email(request,user,leave,mail_subject,template_name)
                     messages.success(
                         request, f"{leave.user.first_name} Leave has Been Granted."
                     )
                 else:
+                    mail_subject = 'Sorry!!'
+                    template_name = 'emails/hr/leavedenied.html'
+                    leave_email(request,user,leave,mail_subject,template_name)
                     messages.error(
                         request, f"{leave.user.first_name} Leave has Been Denied!"
                     )

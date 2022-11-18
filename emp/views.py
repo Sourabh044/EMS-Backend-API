@@ -35,7 +35,7 @@ def applyleave(request):
             leave = form.save(commit=False)
             leave.user = request.user
             mail_subject = 'Leave Applied Successfully!'
-            template_name = 'emails/leaveapply.html'
+            template_name = 'emails/emp/leaveapply.html'
             user = request.user
             leave.save()
             leave_apply_email(request,user,leave,mail_subject,template_name)
