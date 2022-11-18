@@ -10,7 +10,7 @@ from django.utils.http import urlsafe_base64_encode
 
 
 
-def leave_apply_email(request, user, mail_subject, template_name):
+def leave_email(request, user, mail_subject, template_name):
     from_email = settings.DEFAULT_FROM_EMAIL
     current_site = get_current_site(request)
     mail_subject = mail_subject

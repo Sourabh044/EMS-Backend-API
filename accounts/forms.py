@@ -1,6 +1,6 @@
 from django import forms
 from .models import User ,UserProfile , LeaveApplication
-
+from django.utils import timezone
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -43,7 +43,7 @@ class EmployeeUserProfileForm(forms.ModelForm):
         )
 
 class LeaveForm(forms.ModelForm):
-    date = forms.DateField(required= False, widget=DateInput)
+    date = forms.DateField(required= True, widget=DateInput(attrs={'min':timezone.now().date()}), initial=timezone.now().date())
     class Meta:
         model = LeaveApplication
         fields = ('approved','type','date','reason',)
