@@ -13,6 +13,7 @@ from accounts.models import User, UserProfile, LeaveApplication
 from accounts.serializers import EmployeeSerializer
 from accounts.views import check_role_HR
 from django.views import View
+from django.contrib.auth.hashers import make_password
 
 # Create your views here.
 
@@ -128,6 +129,7 @@ def addemployee(request):
         if form.is_valid() and pform.is_valid():
             employee = form.save(commit=False)
             employee.account = User.EMPLOYEE
+            employee.password = make_password(request.POST.get("password"))
             employee.save()
             pform.save()
             messages.success(request, f"Employee Saved")
@@ -144,20 +146,24 @@ def addemployee(request):
 def LeaveList(request, pk=None):
     if pk:
         leave = LeaveApplication.objects.get(id=pk)
-        if request.method=='POST':
+        if request.method == "POST":
             form = LeaveForm(request.POST)
             if form.is_valid():
-                approved = form.cleaned_data.get('approved')
+                approved = form.cleaned_data.get("approved")
                 leave.approved = approved
-                leave.date = form.cleaned_data.get('date')
-                leave.reason = form.cleaned_data.get('reason')
-                leave.type = form.cleaned_data.get('type')
+                leave.date = form.cleaned_data.get("date")
+                leave.reason = form.cleaned_data.get("reason")
+                leave.type = form.cleaned_data.get("type")
                 leave.save()
                 if approved:
-                    messages.success(request,f'{leave.user.first_name} Leave has Been Granted.')
+                    messages.success(
+                        request, f"{leave.user.first_name} Leave has Been Granted."
+                    )
                 else:
-                    messages.error(request,f'{leave.user.first_name} Leave has Been Denied!')
-                return redirect('leave-list')
+                    messages.error(
+                        request, f"{leave.user.first_name} Leave has Been Denied!"
+                    )
+                return redirect("leave-list")
         form = LeaveForm(instance=leave)
         context = {
             "leave": leave,

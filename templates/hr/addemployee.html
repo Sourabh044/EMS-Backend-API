@@ -7,28 +7,33 @@
     <form class="mb-2 " action="{% url 'add-employee' %}" method="post">
     {% csrf_token %}
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <label for="email" class="form-label">Email address</label>
             {{form.email}}
             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
         </div>
         <div class="mb-3">
-            <label for="firstname" class="form-label">First name</label>
+            <label for="password" class="form-label">Password</label>
+            {{form.password}}
+            <div id="passwordhelp" class="form-text">Enter a strong password.<div>
+        </div>
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First name</label>
             {{form.first_name}}
         </div>
             <div class="mb-3">
-            <label for="Midle Name" class="form-label">Middle Name</label>
+            <label for="middle_Name" class="form-label">Middle Name</label>
             {{form.middle_name}}
         </div>
             <div class="mb-3">
-            <label for="Last name" class="form-label">Last Name</label>
+            <label for="last_name" class="form-label">Last Name</label>
             {{form.last_name}}
         </div>
             <div class="mb-3">
-            <label for="Username" class="form-label">Username</label>
+            <label for="username" class="form-label">Username</label>
             {{form.username}}
         </div>
             <div class="mb-3">
-            <label for="Phone Number" class="form-label">Phone Number</label>
+            <label for="phone_number" class="form-label">Phone Number</label>
             {{form.phone_number}}
         </div>
             <div class="mb-3">

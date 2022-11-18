@@ -4,12 +4,11 @@ from .models import User ,UserProfile , LeaveApplication
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-class EmployeeForm(forms.ModelForm):    
+class EmployeeForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())    
     class Meta:
         model = User
-        # fields = ('first_name',)
         exclude = (
-            "password",
             "date_joined",
             "last_login",
             "created_at",

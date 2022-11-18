@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from accounts.forms import LeaveForm
 from accounts.models import LeaveApplication
 from accounts.views import check_role_employee
-
+from hr.utils import leave_apply_email
 
 # Create your views here.
 @login_required(login_url="login")
@@ -35,6 +35,10 @@ def applyleave(request):
             leave = form.save(commit=False)
             leave.user = request.user
             leave.save()
+            user = request.user
+            mail_subject = ''
+            template_name = ''
+            leave_apply_email(request,user,mail_subject,template_name)
             messages.success(request, "Success: Wait for Approval.")
             return redirect("my-leaves")
         else:

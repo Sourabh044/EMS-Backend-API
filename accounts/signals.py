@@ -1,5 +1,5 @@
 from django.db.models.signals import post_save, pre_save
-from .models import User, UserProfile
+from .models import User, UserProfile , LeaveApplication
 from django.dispatch import receiver
 # from django.contrib import messages
 
@@ -25,3 +25,16 @@ def pre_save_profile_reciever(sender, instance, **kwargs):
 
 
 # post_save.connect(post_save_create_profile, sender=User)
+
+# @receiver(post_save,sender=LeaveApplication)
+# def post_save_leave_reciever(sender,instance,created,**kwargs):
+#     if created:
+#             leave_apply_email()
+#             # messages.success(kwargs['request'], "Your Account has been created.")
+#     else:
+#         try:
+#             profile = UserProfile.objects.get(user=instance)
+#             profile.save()
+#         except:
+#             # creating new user profile
+#             UserProfile.objects.create(user=instance)
