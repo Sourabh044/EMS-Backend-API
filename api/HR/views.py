@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework import viewsets
-from accounts.models import User
-from api.HR.serializers import EmployeeSerializer
+from accounts.models import User , LeaveApplication
+from api.HR.serializers import EmployeeSerializer ,LeaveHRSerializer
 from rest_framework.routers import DefaultRouter
 from django.contrib.auth.decorators import login_required ,permission_required , user_passes_test
 # Create your views here.
@@ -21,6 +21,12 @@ class EmployeeViewset(viewsets.ModelViewSet):
     # authentication_classes = [TokenAuthentication]
     # renderer_classes = [UserRenderer]
 
+
+class LeaveViewset(viewsets.ModelViewSet):
+    queryset = LeaveApplication.objects.all()
+    permission_classes = [IsAuthenticated,IsHR]
+    serializer_class = LeaveHRSerializer
 router = DefaultRouter()
 
 router.register(r'Employees',EmployeeViewset, basename='Employees')
+router.register(r'Leaves',LeaveViewset, basename='Leaves')

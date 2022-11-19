@@ -6,7 +6,6 @@ from django.utils.decorators import method_decorator
 from django.views import View
 
 
-
 from django.views.generic.edit import CreateView
 from accounts.forms import EmployeeForm, EmployeeUserProfileForm, LeaveForm
 from accounts.models import User, UserProfile, LeaveApplication
@@ -17,7 +16,7 @@ from .utils import leave_email
 
 # Create your views here.
 
-'''@login_required(login_url='login')
+"""@login_required(login_url='login')
 @user_passes_test(check_role_HR)
 def employee(request,pk=None):
     if not pk:
@@ -48,7 +47,7 @@ def employee(request,pk=None):
         return render(request,'hr/employee.html',context)
 
 @login_required(login_url='login')
-@user_passes_test(check_role_HR)'''
+@user_passes_test(check_role_HR)"""
 
 
 decorators = [login_required, user_passes_test(check_role_HR)]
@@ -143,16 +142,10 @@ def LeaveList(request, pk=None):
                 leave.save()
                 user = leave.user
                 if approved:
-                    mail_subject = 'Leave Approved!!'
-                    template_name = 'emails/hr/leaveapprove.html'
-                    leave_email(request,user,leave,mail_subject,template_name)
                     messages.success(
                         request, f"{leave.user.first_name} Leave has Been Granted."
                     )
                 else:
-                    mail_subject = 'Sorry!!'
-                    template_name = 'emails/hr/leavedenied.html'
-                    leave_email(request,user,leave,mail_subject,template_name)
                     messages.error(
                         request, f"{leave.user.first_name} Leave has Been Denied!"
                     )

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import User
+from accounts.models import User , LeaveApplication
 from django.contrib.auth.hashers import make_password
 from rest_framework.validators import (
     UniqueValidator,
@@ -34,3 +34,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data["password"] = make_password(validated_data.get("password"))
         return super(EmployeeSerializer, self).create(validated_data)
+
+
+class LeaveHRSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaveApplication
+        fields = ('__all__')
