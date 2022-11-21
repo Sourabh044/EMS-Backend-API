@@ -26,7 +26,7 @@
       <td>{{employees.email}}</td>
       <td>{{employees.username}}</td>
       <td>{{employees.phone_number}}</td>
-      <td><a href="{% url 'employee' employees.id %}"><i class="fa fa-user-pen "></i></i></a> | 
+      <td><a href="{% url 'employee' employees.id %}"><i class="fa fa-user-pen "></i></a> | 
           <a href="{% url 'delete-employee' employees.id %}" onclick="return confirm('Are you sure you want to delete {{employee.first_name}}?')"><i class="fa fa-solid fa-user-slash text-danger"></i></a>
       </td> 
     </tr>

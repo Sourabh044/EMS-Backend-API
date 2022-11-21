@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from accounts.models import User , LeaveApplication
+from accounts.models import User , LeaveApplication , UserProfile
 from django.contrib.auth.hashers import make_password
 from rest_framework.validators import (
     UniqueValidator,
@@ -35,6 +35,10 @@ class EmployeeSerializer(serializers.ModelSerializer):
         validated_data["password"] = make_password(validated_data.get("password"))
         return super(EmployeeSerializer, self).create(validated_data)
 
+class UserprofileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('permanent_address','permanent_country','permanent_state','permanent_city','permanent_pincode','present_address','present_country','present_state','present_city','present_pincode','gender','emergency_contact','date_of_joining','date_of_termination','pan_card_no','aadhaar_card','blood_group','date_of_birth',)
 
 class LeaveHRSerializer(serializers.ModelSerializer):
     class Meta:
