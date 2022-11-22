@@ -6,6 +6,7 @@ from api.HR.serializers import EmployeeSerializer ,LeaveHRSerializer , Userprofi
 from rest_framework.routers import DefaultRouter
 from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required ,permission_required , user_passes_test
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
 # Create your views here.
 # API Views
 
@@ -19,7 +20,7 @@ class EmployeeViewset(viewsets.ModelViewSet):
     queryset = User.objects.filter(account=2)
     serializer_class = EmployeeSerializer
     permission_classes = [IsAuthenticated, IsHR]
- 
+    pagination_class = PageNumberPagination
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
