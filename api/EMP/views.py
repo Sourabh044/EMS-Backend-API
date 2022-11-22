@@ -10,7 +10,7 @@ from emp.utils import leave_apply_email
 class EmpLeave(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
-        return LeaveApplication.objects.filter(user=self.request.user)
+        return LeaveApplication.objects.filter(user=self.request.user).order_by('-date')
     serializer_class = EmpLeaveSerializer
     
     def perform_create(self, serializer):

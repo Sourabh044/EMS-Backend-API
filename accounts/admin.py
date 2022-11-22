@@ -5,12 +5,25 @@ from .models import *
 
 
 # Register your models here.
+
+
+@admin.action(description="Mark selected as Active")
+def make_active(modeladmin, request, queryset):
+    queryset.update(is_active=True)
+
+@admin.action(description="Mark selected as InActive")
+def make_inactive(modeladmin, request, queryset):
+    queryset.update(is_active=False)
+
+
 class CustomUserAdmin(UserAdmin):
     list_display = ("username", "first_name", "last_name", "account", "is_active")
     ordering = ("-date_joined",)
+    actions = [make_active,make_inactive]
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
+    list_per_page = 20
 
 
 admin.site.register(User, CustomUserAdmin)
@@ -34,7 +47,6 @@ class LeaveAppAdmin(admin.ModelAdmin):
     list_editable = ("approved", "type")
     ordering = ("-date",)
     date_hierarchy = "date"
-    
 
 
 admin.site.register(LeaveApplication, LeaveAppAdmin)
