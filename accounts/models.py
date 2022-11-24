@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
+from django.contrib.gis.db import models
 # from django.utils.translation import ugettext_lazy as _
 import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -89,6 +89,9 @@ class User(AbstractBaseUser):
         elif self.account == 2:
             user_role = "EMPLOYEE"
         return user_role
+    
+    def get_fullname(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class UserProfile(models.Model):
@@ -135,6 +138,7 @@ class UserProfile(models.Model):
     # Extra - Details
     latitude = models.CharField(max_length=20, blank=True, null=True)
     longitude = models.CharField(max_length=20, blank=True, null=True)
+    latlng = models.PointField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 

@@ -41,6 +41,10 @@ class UserprofileSerializer(serializers.ModelSerializer):
         fields = ('permanent_address','permanent_country','permanent_state','permanent_city','permanent_pincode','present_address','present_country','present_state','present_city','present_pincode','gender','emergency_contact','date_of_joining','date_of_termination','pan_card_no','aadhaar_card','blood_group','date_of_birth',)
 
 class LeaveHRSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    def get_name(self,object):
+        return object.user.get_fullname()  
     class Meta:
         model = LeaveApplication
-        fields = ('__all__')
+        fields = ('id','name','date','reason','type','approved',)

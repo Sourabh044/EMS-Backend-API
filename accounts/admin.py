@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
+from mapwidgets import GooglePointFieldWidget
 from .models import *
 
 
@@ -11,15 +11,17 @@ from .models import *
 def make_active(modeladmin, request, queryset):
     queryset.update(is_active=True)
 
+
 @admin.action(description="Mark selected as InActive")
 def make_inactive(modeladmin, request, queryset):
     queryset.update(is_active=False)
 
 
 class CustomUserAdmin(UserAdmin):
-    list_display = ("username", "first_name", "last_name", "account", "is_active")
+    list_display = ("username", "first_name",
+                    "last_name", "account", "is_active")
     ordering = ("-date_joined",)
-    actions = [make_active,make_inactive]
+    actions = [make_active, make_inactive]
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
@@ -28,14 +30,25 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(User, CustomUserAdmin)
 
-# class CustomUserProfileAdmin(UserAdmin):
-#     list_display = ("email", "first_name", "last_name", "role", "is_active")
-#     ordering = ("-date_joined",)
-#     filter_horizontal = ()
-#     list_filter = ()
-#     fieldsets = ()
 
-admin.site.register(UserProfile)
+class CustomUserProfileAdmin(admin.ModelAdmin):
+    list_display = ['get_fullname', ]
+    ordering = ('-modified_date',)
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+    formfield_overrides = {
+        models.PointField: {"widget": GooglePointFieldWidget},
+    }
+
+    def get_fullname(self, obj):
+        return obj.user.get_fullname()
+    # def get_fields(self,obj):
+    #     user = obj.user
+    #     return [user.email,user.is_admin]
+
+
+admin.site.register(UserProfile, CustomUserProfileAdmin)
 
 admin.site.register(EducationDetails)
 

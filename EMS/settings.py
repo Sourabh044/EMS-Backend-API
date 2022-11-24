@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-i%=(7&==q597u0955z)=*8jduj_(_c5lgicshocliue7lvwn%=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 AUTH_USER_MODEL = "accounts.User"
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.sites',
     'django.contrib.auth',
+    'django.contrib.gis',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'hr',
     'emp',
     'api',
+    'mapwidgets',
 ]
 
 MIDDLEWARE = [
@@ -66,8 +68,10 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://0.0.0.0',
+    'http://*'
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'EMS.urls'
 
 TEMPLATES = [
@@ -102,7 +106,7 @@ WSGI_APPLICATION = 'EMS.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
         "NAME": config("DB_NAME"),
         "USER": config("DB_USER"),
         "HOST": config("DB_HOST"),
