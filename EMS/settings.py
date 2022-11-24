@@ -161,7 +161,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',  # add this to enable the Default Token Authentication
+        # add this to enable the Default Token Authentication
+        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
@@ -182,3 +183,8 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = f'HR <{config("DEFAULT_FROM_EMAIL")}>'
 
 SITE_ID = 1
+
+try:
+    from settings_local import *
+except:
+    pass
