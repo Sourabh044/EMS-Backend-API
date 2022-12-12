@@ -3,7 +3,7 @@
 {% block content %}
 {% if leaves %}
 
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" > 
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 animate__animated animate__fadeIn" > 
 <a href="{% url 'add-employee'%}"class="btn btn-primary m-2 float-end"> <i class="fa fa-solid fa-user-plus"></i>Add</a>
 <table class="table">
   <thead>
@@ -58,7 +58,7 @@
 </table>
 </div>
 {% else %}
-<h1>No leaves here!</h1>
+<h1 class='animate__animated animate__fadeIn'>No leaves here!</h1>
 
 {% endif %}
 

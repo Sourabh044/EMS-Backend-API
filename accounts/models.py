@@ -89,7 +89,7 @@ class User(AbstractBaseUser):
         elif self.account == 2:
             user_role = "EMPLOYEE"
         return user_role
-    
+
     def get_fullname(self):
         return f'{self.first_name} {self.last_name}'
 
@@ -103,7 +103,8 @@ class UserProfile(models.Model):
         (FEMALE, "Female"),
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to="user/profile_pictures", blank=True, null=True
     )
@@ -138,7 +139,7 @@ class UserProfile(models.Model):
     # Extra - Details
     latitude = models.CharField(max_length=20, blank=True, null=True)
     longitude = models.CharField(max_length=20, blank=True, null=True)
-    latlng = models.PointField(null=True,blank=True)
+    latlng = models.PointField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
@@ -186,15 +187,14 @@ class LeaveApplication(models.Model):
     UNPAID = 2
 
     LEAVE_TYPE = (
-        (PAID,'PAID'),
-        (UNPAID,"UNPAID"),
+        (PAID, 'PAID'),
+        (UNPAID, "UNPAID"),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(blank=False, null=False)
-    reason = models.TextField(max_length=150,null=True,blank=True)
-    type = models.PositiveSmallIntegerField(choices=LEAVE_TYPE,default=UNPAID)
+    reason = models.TextField(max_length=150, null=True, blank=True)
+    type = models.PositiveSmallIntegerField(choices=LEAVE_TYPE, default=UNPAID)
     approved = models.BooleanField(default=False)
-    
 
     def __str__(self):
         return f'{self.user.first_name} | {self.date} | {self.approved} '

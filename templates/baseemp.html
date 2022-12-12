@@ -12,6 +12,7 @@
         <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
         
         <script src="https://kit.fontawesome.com/20889b3028.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
         <link href="{% static 'css/custom.css' %}" rel="stylesheet">
@@ -54,7 +55,7 @@
                     </div>
                 </nav>
                 <!-- Page content-->
-                <div class="container-fluid">
+                <div class="container-fluid animate__animated animate__fadeIn">
                     {% block content %}
                     
                     {% if '/home' in request.path %}

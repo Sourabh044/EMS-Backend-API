@@ -66,7 +66,7 @@ class Employee(View):
             page_number = request.GET.get("page")
             page_obj = paginator.get_page(page_number)
 
-            return render(request, "hr/employees.html", {"page_obj": page_obj})
+            return render(request, "hr/employees.html", {"page_obj": page_obj, 'pages': page_obj.count()})
         elif pk:
             employee = User.objects.get(id=pk)
             profile = UserProfile.objects.get(user=employee)
